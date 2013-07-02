@@ -1,17 +1,17 @@
 require "bundler/capistrano"
 
 set :application, "ladder"
-set :repository,  "git@github.com:proglottis/ladder.git"
+set :repository,  "git@github.com:jtwalters/ladder.git"
 
 set :scm, :git
 set :branch, "master"
 
-set :deploy_to, "/srv/ladder"
+set :deploy_to, "/srv/www/rb.joelwalters.com/app"
 
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
-server "ladders.pw", :app, :web, :db, :primary => true
+server "rb.joelwalters.com", :app, :web, :db, :primary => true
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true

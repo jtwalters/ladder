@@ -118,6 +118,7 @@ GEM
       minitest-rails (~> 0.9.1)
     multi_json (1.7.7)
     multipart-post (1.2.0)
+    mysql2 (0.3.11)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -142,7 +143,6 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    pg (0.15.1)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -223,9 +223,9 @@ DEPENDENCIES
   less-rails
   minitest-rails
   minitest-rails-capybara
+  mysql2
   omniauth
   omniauth-google-oauth2
-  pg
   rails (= 4.0.0)
   redcarpet
   rickshaw_rails
