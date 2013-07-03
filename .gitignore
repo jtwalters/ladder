@@ -17,3 +17,6 @@
 .rbenv-version
 .ruby-version
 .DS_Store
+
+config/database.yml
+config/application.yml
