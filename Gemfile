@@ -9,8 +9,6 @@ gem 'therubyracer', :platforms => :ruby
 gem 'uglifier', '~> 2.1.1'
 gem 'less-rails'
 gem 'jquery-rails'
-gem 'capistrano'
-gem 'rvm-capistrano', :group => :development
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails'
@@ -23,6 +21,11 @@ gem 'redcarpet'
 gem 'rickshaw_rails'
 gem 'minitest-rails'
 gem 'turbolinks'
+
+group :development do
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+end
 
 group :test, :development do
   gem 'capybara_minitest_spec'

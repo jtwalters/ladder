@@ -6,10 +6,8 @@ set :use_sudo, false
 
 set :application, "ladder"
 set :repository,  "git@github.com:jtwalters/ladder.git"
-
 set :scm, :git
 set :branch, "master"
-
 set :deploy_to, "/srv/www/rb.joelwalters.com/app"
 
 set :whenever_command, "bundle exec whenever"
@@ -26,15 +24,14 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-end
 
-after "deploy:update_code", "customs:config"
-
-namespace(:customs) do
-  task :config, :roles => :app do
-    run <<-CMD
-      ln -nfs #{shared_path}/system/database.yml #{release_path}/config/database.yml
-      ln -nfs #{shared_path}/system/application.yml #{release_path}/config/application.yml
-    CMD
+  desc "Symlink shared config files"
+  task :symlink_config_files, :roles => :app do
+    run "#{ try_sudo } ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+    run "#{ try_sudo } ln -nfs #{deploy_to}/shared/config/application.yml #{release_path}/config/application.yml"
   end
 end
+
+after "deploy:update_code", "deploy:symlink_config_files"
+# after "deploy", "deploy:restart"
+# after "deploy", "deploy:cleanup"
