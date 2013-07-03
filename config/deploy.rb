@@ -1,4 +1,8 @@
+require "rvm/capistrano"
 require "bundler/capistrano"
+
+set :user, "joel"
+set :use_sudo, false
 
 set :application, "ladder"
 set :repository,  "git@github.com:jtwalters/ladder.git"

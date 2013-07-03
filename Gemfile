@@ -10,6 +10,7 @@ gem 'uglifier', '~> 2.1.1'
 gem 'less-rails'
 gem 'jquery-rails'
 gem 'capistrano'
+gem 'rvm-capistrano', :group => :development
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails'
