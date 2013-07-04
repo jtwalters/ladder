@@ -20,7 +20,7 @@ module Ladder
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.action_mailer.default_url_options = { :host => 'rb.joelwalters.com' }
+    config.action_mailer.default_url_options = { :host => ENV['MAIL_HOST']  }
     config.action_mailer.smtp_settings = {
       enable_starttls_auto: false
     }

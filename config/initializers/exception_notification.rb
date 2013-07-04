@@ -1,7 +1,7 @@
 if Rails.env.production?
   Rails.application.config.middleware.use ExceptionNotification::Rack,
     :email => {
-      :sender_address => 'ladders@rb.joelwalters.com',
-      :exception_recipients => ENV['LADDER_SERVICE_EMAIL']
+      :sender_address => ENV['MAIL_FROM'],
+      :exception_recipients => ENV['MAIL_EXCEPTIONS']
     }
 end
