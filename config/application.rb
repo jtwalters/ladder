@@ -21,6 +21,9 @@ module Ladder
     # config.i18n.default_locale = :de
 
     config.action_mailer.default_url_options = { :host => 'rb.joelwalters.com' }
+    config.action_mailer.smtp_settings = {
+      enable_starttls_auto: false
+    }
 
     config.exceptions_app = self.routes
 
