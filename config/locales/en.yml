@@ -3,13 +3,13 @@
 
 en:
   application:
-    name: UW Ladders at the IMA
+    name: IMAT (IMA Tournaments)
     fork_me:
       text: Fork me on Github
       href: https://github.com/jtwalters/ladder
     issues:
       text: Request features & Report bugs
-      href: https://github.com/jtwalters/ladder/issues
+      href: https://github.com/proglottis/ladder/issues
     version:
       text: Version %{version}
       href: https://github.com/jtwalters/ladder/tree/%{version}
@@ -22,7 +22,7 @@ en:
       login_with: Login with %{name}
       title: Login
     new:
-      new_authentication: This authentication is new to Ladder
+      new_authentication: Please confirm your new login method.
       confirm: Confirm
       unknown: Unknown
     create:
@@ -47,17 +47,17 @@ en:
     show:
       title: Home
       welcome: Welcome %{name}
-      slogan: Create and manage ladder play for any one on one games at the UW IMA.
+      slogan: Create and manage tournament play for any 1v1 games at the UW IMA.
       start: Login to start
       skill:
         title: Track your skill
-        summary: Ladders will keep track of your skill over time. Each week it will update your rating against others in your tournament.
+        summary: IMAT will keep track of your skill over time. Each week it will update your rating against others in your tournament.
       challenges:
         title: Challenges
         summary: Challenge others to play, refusal to respond will result in them losing by default. Comment on challenges to keep up to date.
       generic:
         title: Any 1v1 game
-        summary: Ladders makes use of Glicko to calculate updates to rankings. This means it can track players of almost any 1v1 game.
+        summary: IMAT makes use of Glicko to calculate updates to rankings. This means it can track players of almost any 1v1 game.
 
   tournaments:
     index:
