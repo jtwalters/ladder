@@ -21,6 +21,7 @@ gem 'redcarpet'
 gem 'rickshaw_rails'
 gem 'minitest-rails'
 gem 'turbolinks'
+gem 'figaro'
 
 group :development do
   gem 'capistrano'
