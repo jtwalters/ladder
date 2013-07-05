@@ -15,7 +15,7 @@ gem 'twitter-bootstrap-rails'
 gem 'dalli'
 gem 'kaminari'
 gem 'glicko2'
-gem 'whenever', :require => false
+gem 'whenever', :require => false, :github => 'iTakeshi/whenever', :branch => 'rails4'
 gem 'exception_notification', '~> 4.0.0.rc1'
 gem 'redcarpet'
 gem 'rickshaw_rails'
