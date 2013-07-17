@@ -24,12 +24,6 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-
-  desc "Symlink shared config files"
-  task :symlink_config_files, :roles => :app do
-    run "#{ try_sudo } ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
-    run "#{ try_sudo } ln -nfs #{deploy_to}/shared/config/application.yml #{release_path}/config/application.yml"
-  end
 end
 
 namespace :figaro do
