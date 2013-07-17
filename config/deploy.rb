@@ -32,6 +32,10 @@ namespace :deploy do
   end
 end
 
-after "deploy:update_code", "deploy:symlink_config_files"
-# after "deploy", "deploy:restart"
-# after "deploy", "deploy:cleanup"
+namespace :figaro do
+  task :symlink, :roles => :app do
+    run "ln -s #{shared_path}/database.yml #{release_path}/config/database.yml"
+    run "ln -s #{shared_path}/application.yml #{release_path}/config/application.yml"
+  end
+  before "deploy:finalize_update", "figaro:symlink"
+end
