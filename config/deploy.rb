@@ -16,6 +16,7 @@ require "whenever/capistrano"
 server application, :app, :web, :db, :primary => true
 
 default_run_options[:pty] = true
+default_run_options[:shell] = '/bin/bash -l'
 ssh_options[:forward_agent] = true
 
 namespace :deploy do
