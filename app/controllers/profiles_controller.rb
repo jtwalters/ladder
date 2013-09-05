@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
   end
 
   def history
-    @tournament = Tournament.with_rated_user(current_user, @user).find(params[:tournament_id])
+    @tournament = Tournament.with_rated_user(current_user, @user).friendly.find(params[:tournament_id])
     @users = current_user == @user ? [current_user] : [current_user, @user]
     @series = @users.map do |user|
       {
@@ -25,6 +25,6 @@ class ProfilesController < ApplicationController
   private
 
   def find_user
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 end
