@@ -1,42 +1,30 @@
+initHistoryGraph = (id, url)->
+  d3.json(url, (data) ->
+
+    nv.addGraph(->
+      chart = nv.models.lineChart().
+        x((d) -> new Date(d.period_at)).
+        y((d) -> d.rating - 2.0 * d.rating_deviation).
+        color(d3.scale.category10().range())
+      chart.useInteractiveGuideline(true)
+
+      chart.xAxis.tickFormat((d) -> d3.time.format("%x")(new Date(d)))
+      chart.yAxis.tickFormat(d3.format(".0f"))
+
+      d3.select("#" + id + " svg.plot").
+        datum(data).
+        transition().duration(500).call(chart)
+      nv.utils.windowResize(->
+        chart.update()
+      )
+      chart
+    )
+  )
+
 initHistoryGraphs = ->
-  $('.tournament.plot').each (index, element) ->
-    container = $(element)
-    chart_element = container.children('.chart').get(0)
-    y_axis_element = container.children('.y_axis').get(0)
-    legend_element = container.children('.legend').get(0)
-    palette = new Rickshaw.Color.Palette
-    ajax_graph = new Rickshaw.Graph.Ajax({
-      element: chart_element
-      width: 300
-      height: 100
-      min: 800
-      renderer: 'line'
-      interpolation: 'linear'
-      dataURL: container.data('url')
-      onData: (d) ->
-        for series in d
-          series.color = palette.color()
-          series.data = for point in series.data
-            {
-              x: Date.parse(point.period_at) / 1000.0
-              y: Math.round(parseFloat(point.rating) - 2.0 * parseFloat(point.rating_deviation))
-            }
-          series
-      onComplete: ->
-        x_axis = new Rickshaw.Graph.Axis.Time
-          graph: @graph
-        y_axis = new Rickshaw.Graph.Axis.Y
-          graph: @graph
-          orientation: 'left'
-          element: y_axis_element
-        hover_detail = new Rickshaw.Graph.HoverDetail
-          graph: @graph
-          xFormatter: (x) ->
-            new Date(x * 1000).toString()
-          yFormatter: (y) ->
-            y.toFixed(0)
-        @graph.update()
-    })
+  $('.tournament').each(() ->
+    initHistoryGraph(@id, $("svg.plot", this).data("url"))
+  )
 
 jQuery -> initHistoryGraphs()
 $(document).on 'page:load', initHistoryGraphs
