@@ -5,7 +5,6 @@
 
 <ul class="nav nav-tabs">
   <li class="active"><%= link_to t('.feed'), root_path %></li>
-  <li><%= link_to challenges_path do %><%= Challenge.model_name.human.pluralize %> <%= defending_count_badge %><% end %></li>
   <li><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
 </ul>
 
@@ -29,6 +28,11 @@
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">
-    <%= render @activity %>
+    <% if @activity.any? %>
+      <%= render @activity %>
+    <% else %>
+      <h2><%= t '.no_activity' %></h2>
+      <p><%= t '.no_activity_description' %></p>
+    <% end %>
   </div>
 </div>

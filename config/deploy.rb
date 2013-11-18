@@ -1,36 +1,37 @@
-require "rvm/capistrano"
-require "bundler/capistrano"
-
-set :user, "joel"
-set :use_sudo, false
-
 set :application, "imat.us"
-set :repository,  "git@github.com:jtwalters/ladder.git"
+set :repo_url,  "git@github.com:jtwalters/ladder.git"
 set :scm, :git
 set :branch, "master"
 set :deploy_to, "/srv/www/#{application}/app"
+set :pty, true
 
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+set :linked_files, %w{config/database.yml config/application.yml}
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-server application, :app, :web, :db, :primary => true
+set :ssh_options, { :forward_agent => true }
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+# set :keep_releases, 5
 
-default_run_options[:pty] = true
-default_run_options[:shell] = '/bin/bash -l'
-ssh_options[:forward_agent] = true
+set :rails_env, 'production'
 
 namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-end
 
-namespace :figaro do
-  task :symlink, :roles => :app do
-    run "ln -s #{shared_path}/database.yml #{release_path}/config/database.yml"
-    run "ln -s #{shared_path}/application.yml #{release_path}/config/application.yml"
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
   end
-  before "deploy:finalize_update", "figaro:symlink"
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
+  end
+
+  after :finishing, 'deploy:cleanup'
+
 end

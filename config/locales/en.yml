@@ -1,5 +1,23 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
 
 en:
   application:
@@ -12,7 +30,7 @@ en:
       href: https://github.com/proglottis/ladder/issues
     version:
       text: Version %{version}
-      href: https://github.com/jtwalters/ladder/tree/%{version}
+      href: https://github.com/jtwalters/ladder/tree/v%{version}
 
   sessions:
     login: Login
@@ -58,6 +76,7 @@ en:
       generic:
         title: Any 1v1 game
         summary: IMAT makes use of Glicko to calculate updates to rankings. This means it can track players of almost any 1v1 game.
+      public_tournaments: Open Tournaments
 
   tournaments:
     index:
@@ -66,6 +85,8 @@ en:
       can_start: You can only start %{count} more
       mine: My Tournaments
       public: Open Tournaments
+      no_activity: No activity
+      no_activity_description: Play some games and log them. Your recent activity will be listed here.
     new:
       title: Start tournament
     show:
@@ -117,11 +138,19 @@ en:
     index:
       pending: Pending Confirmation
       unconfirmed: Unconfirmed Games
+      no_pending_or_unconfirmed: No pending or unconfirmed games
+      no_pending_or_unconfirmed_message: Check back here to see games pending your confirmation, or games that you are waiting for others to confirm.
     new:
       title: New game
     show:
       status: Status
       confirm: Confirm
+      rules: This challenge expires on %{time}. If %{defender} does not log a game against it before then s/he will lose by default.
+      responded: "%{defender} has responded to this challenge."
+      won: I won
+      lost: I lost
+      respond: Respond
+      response: Response
     game_rank:
       confirmed: Confirmed, %{time} ago
       unconfirmed: Unconfirmed
@@ -133,13 +162,6 @@ en:
     new:
       title: New challenge
       rules: Challenge a player to a game. %{defender} will have 7 days to log the result against this challenge or s/he will lose by default.
-    show:
-      rules: This challenge expires on %{time}. If %{defender} does not log a game against it before then s/he will lose by default.
-      responded: "%{defender} has responded to this challenge."
-      won: I won
-      lost: I lost
-      respond: Respond
-      response: Response
 
   notifications:
     tournament_invitation:

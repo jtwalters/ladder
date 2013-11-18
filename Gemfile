@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.1'
 
-gem 'mysql2'
+gem 'pg', :group => :development
+gem 'mysql2', :group => :production
 gem 'sass-rails',   '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer', :platforms => :ruby
@@ -14,23 +15,23 @@ gem 'omniauth-facebook'
 gem 'dalli'
 gem 'kaminari'
 gem 'glicko2'
-gem 'whenever', '~> 0.8.3', :require => false
+gem 'whenever', :require => false, :github => 'phallstrom/whenever', :ref => "a9093524ae6b11b843f59ddd83fd214bc2ead18e"
 gem 'exception_notification', '~> 4.0.0.rc1'
 gem 'minitest-rails'
 gem 'turbolinks'
 gem 'figaro'
-gem 'friendly_id', '5.0.0.beta4'
+gem 'friendly_id', '5.0.1'
 gem 'kramdown'
 gem 'maildown'
 
-group :development do
-  gem 'capistrano'
-  gem 'rvm-capistrano'
-end
+gem 'capistrano', '~> 3.0.0'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
   gem 'minitest-rails-capybara'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'timecop'
   gem 'debugger'
 end
