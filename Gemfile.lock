@@ -45,6 +45,8 @@ GEM
       capistrano (>= 3.0.0.pre)
     capistrano-rails (1.0.0)
       capistrano
+    capistrano-rvm (0.0.3)
+      capistrano
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -221,6 +223,7 @@ DEPENDENCIES
   capistrano (~> 3.0.0)
   capistrano-bundler
   capistrano-rails
+  capistrano-rvm
   capybara_minitest_spec
   coffee-rails (~> 4.0.0)
   dalli

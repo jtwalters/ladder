@@ -27,6 +27,7 @@ gem 'maildown'
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
+gem 'capistrano-rvm'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
