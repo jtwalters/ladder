@@ -40,6 +40,3 @@ server 'imat.us', user: `whoami`.strip, roles: %w{web app db}
 # setting per server overrides global ssh_options
 
 # fetch(:default_env).merge!(rails_env: :production)
-
-set :rvm_type, :user
-set :rvm_ruby_version, '2.0.0-p247'
