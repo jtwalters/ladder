@@ -2,7 +2,7 @@ set :application, "imat.us"
 set :repo_url,  "git@github.com:jtwalters/ladder.git"
 set :scm, :git
 set :branch, "master"
-set :deploy_to, "/srv/www/#{application}/app"
+set :deploy_to, "/srv/www/imat.us/app"
 set :pty, true
 
 set :linked_files, %w{config/database.yml config/application.yml}
