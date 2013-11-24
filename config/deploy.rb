@@ -1,5 +1,8 @@
 set :application, "imat.us"
 set :repo_url,  "git@github.com:jtwalters/ladder.git"
+
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+
 set :scm, :git
 set :branch, "master"
 set :deploy_to, "/srv/www/imat.us/app"

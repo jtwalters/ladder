@@ -32,16 +32,6 @@ class Rating < ActiveRecord::Base
       select('ratings.*, game_ranks.position')
   end
 
-  def self.with_defending_tournament
-    ratings = arel_table
-    challenges = Challenge.arel_table
-    joins = ratings.join(challenges, Arel::Nodes::OuterJoin).on(
-      ratings[:user_id].eq(challenges[:defender_id]).
-      and(challenges[:game_id].eq(nil)))
-    joins(joins.join_sql).
-      select('ratings.*, challenges.id as defending_challenge_id')
-  end
-
   def low_rank
     rating - 2.0 * rating_deviation
   end
@@ -59,11 +49,7 @@ class Rating < ActiveRecord::Base
   end
 
   def defending_challenge?
-    if has_attribute? :defending_challenge_id
-      read_attribute(:defending_challenge_id).present?
-    else
-      rating_period.tournament.challenges.active.defending(user).present?
-    end
+    rating_period.tournament.games.defender(user).any?
   end
 
   def glicko2_rating

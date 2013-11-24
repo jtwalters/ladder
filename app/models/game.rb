@@ -1,7 +1,7 @@
 class Game < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :owner, :class_name => 'User'
-  has_many :events, :class_name => 'GameEvent', :dependent => :destroy
+  has_many :events, -> { order("id ASC") }, :class_name => 'GameEvent', :dependent => :destroy
   has_many :game_ranks, -> { order('position') }, :dependent => :destroy
   has_many :comments, -> { order('created_at DESC') }, :as => :commentable, :dependent => :destroy
   has_one :challenge
@@ -38,8 +38,12 @@ class Game < ActiveRecord::Base
     joins(:events).merge GameEvent.latest_state(["challenged", "unconfirmed"])
   end
 
+  def self.defender(user)
+    challenged.participant(user).where.not(:owner_id => user)
+  end
+
   def current_state
-    (events.order("id ASC").last.try(:state) || STATES.first).inquiry
+    (events.last.try(:state) || STATES.first).inquiry
   end
 
   def was_challenged?
@@ -145,7 +149,7 @@ class Game < ActiveRecord::Base
   private
 
   def not_already_challenged
-    if tournament.games.challenged.participant(defender).where.not(:owner => defender).any?
+    if tournament.games.defender(defender).any?
       errors[:base] << "Defender already challenged"
     end
   end

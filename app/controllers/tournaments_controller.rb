@@ -8,7 +8,10 @@ class TournamentsController < ApplicationController
   def index
     @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
     @public_tournaments = Tournament.where(public: true).order('tournaments.name ASC')
-    @activity = ActivityFeed.new(1.weeks.ago.beginning_of_week, Time.zone.now).for_user(current_user)
+    @page = [1, params[:page].to_i].max
+    @start_on = ((@page - 1) * 2).weeks.ago.beginning_of_week.to_date
+    @end_on = @start_on + 2.weeks
+    @activity = ActivityFeed.new(@start_on, @end_on).for_user(current_user)
   end
 
   def new
@@ -38,7 +41,7 @@ class TournamentsController < ApplicationController
     end
     @rating_period = @tournament.current_rating_period
     @player = @tournament.players.find_by(user_id: current_user)
-    @ratings = @rating_period.ratings.with_defending_tournament.includes(:user).by_rank
+    @ratings = @rating_period.ratings.includes(:user, {:rating_period => :tournament}).by_rank
     @rating_ranks = @ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
     @rating = @ratings.detect { |rating| rating.user_id == current_user.id } if user_logged_in?
     @pending_games = @tournament.games.confirmed_between(@rating_period.period_at, Time.zone.now)
